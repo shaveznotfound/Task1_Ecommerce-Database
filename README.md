@@ -58,4 +58,4 @@ Data validation: CHECK constraints enforce valid email/phone/pincode formats and
 
 ## Tech Stack
 Database: MySQL 8.x
-Modeling tool: MySQL Workbench (.mwb)
+,Modeling tool: MySQL Workbench (.mwb)
