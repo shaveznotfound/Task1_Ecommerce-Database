@@ -1,8 +1,8 @@
-Task1_Ecommerce-Database
+Task1_Ecommerce_Database
 
 A relational database schema for an e-commerce platform, designed and implemented in MySQL. This project models the core entities of an online store — customers, product catalog, shopping cart, orders, payments, and shipping addresses — with proper normalization, foreign key relationships, and data integrity constraints.
 
-📌 Overview
+Overview
 
 This schema supports a typical e-commerce workflow:
 
@@ -11,17 +11,17 @@ Products are organized into categories, with each product offering multiple vari
 Customers add variants to a shopping cart before checking out
 Checkout creates an order (linked to a shipping address) with one or more order line items
 Each order has exactly one payment record tracking method and status
-🗂️ Repository Structure
+Repository Structure
 File	Description
 Task1_ElevateLabs.sql	Full SQL script — schema (DDL) + seed data (DML)
 Task1 ERR Diagram.mwb	MySQL Workbench source file for the ER diagram
 T1.png	Exported image of the ER diagram
 README.md	Project documentation (this file)
-🧩 Entity-Relationship Diagram
+Entity-Relationship Diagram
 
 ![ER_Diagram](T1.png)
 
-🗃️ Schema Design
+Schema Design
 
 10 tables, organized around four functional groups:
 
@@ -56,40 +56,24 @@ categories ──< products ──< productvariants
 
 ──< = one-to-many · >── = many-to-one
 
-🔑 Key Design Decisions
+ Key Design Decisions
 Price history preserved: orderitems.UnitPrice stores the price at the time of purchase, independent of productvariants.Price, which may change later.
 Referential safety: deleting a category, customer, or productvariant that has existing orders is RESTRICTed rather than cascaded, so historical order data can't be silently destroyed.
 One cart per customer: enforced via a UNIQUE constraint on shoppingcart.CustomerID.
 No duplicate cart lines: UNIQUE(CartID, VariantID) on cartitems prevents the same variant being added as two separate rows.
 Data validation: CHECK constraints enforce valid email/phone/pincode formats and non-negative prices, stock, and quantities.
-🛠️ Tech Stack
+
+ Tech Stack
 Database: MySQL 8.x
 Modeling tool: MySQL Workbench (.mwb)
-🚀 Getting Started
-Clone the repository
+
+ Clone the repository
 bash
-   git clone https://github.com/shaveznotfound/Task1_Ecommerce-Database.git
-   cd Task1_Ecommerce-Database
+   git clone https://github.com/shaveznotfound/Task1_Ecommerce_Database.git
+   cd Task1_Ecommerce_Database
 Run the SQL script in MySQL Workbench or the CLI:
 bash
    mysql -u root -p < Task1_ElevateLabs.sql
 (Optional) Open Task1 ERR Diagram.mwb in MySQL Workbench to explore or edit the ER diagram.
-📊 Sample Queries
-sql
--- All orders with their shipping city
-SELECT o.OrderID, c.FullName, a.City, o.TotalAmount, o.OrderStatus
-FROM orders o
-JOIN customers c ON c.CustomerID = o.CustomerID
-JOIN addresses a ON a.AddressID = o.ShippingAddressID;
 
--- Revenue by product category
-SELECT cat.CategoryName, SUM(oi.Quantity * oi.UnitPrice) AS Revenue
-FROM orderitems oi
-JOIN productvariants pv ON pv.VariantID = oi.VariantID
-JOIN products p ON p.ProductID = pv.ProductID
-JOIN categories cat ON cat.CategoryID = p.CategoryID
-GROUP BY cat.CategoryName
-ORDER BY Revenue DESC;
-👤 Author
 
-Shahvez Saifi (@shaveznotfound)
