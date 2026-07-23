@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS MyDesiMartDB;
 CREATE DATABASE MyDesiMartDB;
 USE MyDesiMartDB;
 
@@ -309,9 +308,7 @@ INSERT INTO CartItems (CartID,VariantID,Quantity) VALUES
 (6,26,2),(7,27,3),(8,28,1),(9,29,2),(10,30,3),
 (1,31,1),(2,32,2),(3,33,3),(4,34,1),(5,35,2);
 
--- Orders: TotalAmount recomputed to equal SUM(Quantity*UnitPrice) of its
--- OrderItems (see corrected OrderItems below), and each order now has a
--- real ShippingAddressID belonging to that customer.
+
 INSERT INTO Orders (CustomerID,ShippingAddressID,TotalAmount,OrderStatus) VALUES
 (1,1,31497,'Pending'),
 (2,2,68994,'Processing'),
